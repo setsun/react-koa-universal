@@ -1,24 +1,16 @@
-const path = require('path');
-
-const koa = require('koa');
-const reactView = require('koa-react-view');
-const register = require('babel-register');
+import path from 'path';
+import koa from 'koa';
+import reactView from 'koa-react-view';
 
 const app = new koa();
-
 const reactViewsPath = path.join(__dirname, 'containers');
 
 reactView(app, {
   views: reactViewsPath
 });
 
-register({
-  presets: ['react-app'],
-  extensions: ['.jsx'],
-});
-
-app.use(function* () {
-  this.render('Index', {
+app.use(async (ctx, next) => {
+  ctx.render('Index', {
     title: 'Index',
     list: [
       'hello koa',
@@ -27,5 +19,6 @@ app.use(function* () {
   });
 });
 
-app.listen(8818);
-console.log('Started!');
+app.listen(8818, function() {
+  console.log(`Started on env:${process.env.NODE_ENV} and port:${this.address().port}`);
+});
