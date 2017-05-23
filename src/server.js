@@ -13,6 +13,9 @@ import Routes from './routes/Routes';
 import renderFullPage from './utils/renderFullPage';
 import rootReducer from './data/rootReducer';
 
+const env = process.env.NODE_ENV || 'test';
+const port = process.env.PORT || 8800;
+
 const routes = [
   '/'
 ];
@@ -47,6 +50,6 @@ app.use(async (ctx, next) => {
   }
 });
 
-app.listen(8818, function() {
-  console.log(`Started on env:${process.env.NODE_ENV} and port:${this.address().port}`);
+app.listen(port, function() {
+  console.log(`Started on env:${env} and port:${this.address().port}`);
 });
