@@ -1,5 +1,7 @@
 import path from 'path';
 import koa from 'koa';
+import serve from 'koa-static';
+import mount from 'koa-mount';
 
 import React from 'react';
 import {renderToString} from 'react-dom/server';
@@ -11,9 +13,13 @@ import renderFullPage from './utils/renderFullPage';
 const app = new koa();
 
 const routes = [
-  '/',
-  '/poop'
+  '/'
 ];
+
+const staticFiles = new koa();
+staticFiles.use(serve(path.join(__dirname, '/client')));
+
+app.use(mount('/static', staticFiles));
 
 app.use(async (ctx, next) => {
   const match = routes.reduce((acc, route) => (
