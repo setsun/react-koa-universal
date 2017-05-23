@@ -17,6 +17,7 @@ export default (html) => {
         <div id="root">
           ${html}
         </div>
+        <script src="/public/client.js"></script>
       </body>
     </html>
   `;

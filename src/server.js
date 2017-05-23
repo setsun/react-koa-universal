@@ -3,18 +3,32 @@ import koa from 'koa';
 
 import React from 'react';
 import {renderToString} from 'react-dom/server';
+import {StaticRouter} from 'react-router';
+import {matchPath} from 'react-router-dom';
+import Routes from './routes/Routes';
 import renderFullPage from './utils/renderFullPage';
-
-import Index from './containers/Index';
 
 const app = new koa();
 
-app.use(async (ctx, next) => {
-  const html = renderToString(
-    <Index />
-  );
+const routes = [
+  '/',
+  '/poop'
+];
 
-  ctx.body = renderFullPage(html);
+app.use(async (ctx, next) => {
+  const match = routes.reduce((acc, route) => (
+    matchPath(ctx.request.url, route, { exact: true}
+  ) || acc), false);
+
+  if (match) {
+    const html = renderToString(
+      <StaticRouter context={{}} location={ctx.request.url}>
+        <Routes />
+      </StaticRouter>
+    );
+
+    ctx.body = renderFullPage(html);
+  }
 });
 
 app.listen(8818, function() {
