@@ -7,11 +7,16 @@ import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
+import rootReducer from './data/rootReducer';
+
 import {StaticRouter} from 'react-router';
 import {matchPath} from 'react-router-dom';
 import Routes from './routes/Routes';
+
+import {ThemeProvider, ServerStyleSheet} from 'styled-components';
+import theme from './style/theme';
+
 import renderFullPage from './utils/renderFullPage';
-import rootReducer from './data/rootReducer';
 
 const env = process.env.NODE_ENV || 'test';
 const port = process.env.PORT || 8800;
@@ -34,19 +39,25 @@ app.use(async (ctx, next) => {
   ) || acc), false);
 
   if (match) {
+    const sheet = new ServerStyleSheet();
     const store = createStore(rootReducer);
     const initialState = store.getState();
 
     const html = renderToString(
-      <Provider store={store}>
-        <StaticRouter context={{}} location={ctx.request.url}>
-          <Routes />
-        </StaticRouter>
-      </Provider>
+      sheet.collectStyles(
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <StaticRouter context={{}} location={ctx.request.url}>
+              <Routes />
+            </StaticRouter>
+          </Provider>
+        </ThemeProvider>
+      )
     );
 
+    const css = sheet.getStyleTags();
 
-    ctx.body = renderFullPage(html, initialState);
+    ctx.body = renderFullPage(html, css, initialState);
   }
 });
 

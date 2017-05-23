@@ -1,4 +1,4 @@
-export default (html, initialState) => {
+export default (html, css, initialState) => {
   return `
     <!doctype html>
     <html lang="en">
@@ -8,6 +8,7 @@ export default (html, initialState) => {
         <meta name="theme-color" content="#000000"/>
         <link rel="manifest" href="/public/manifest.json">
         <link rel="shortcut icon" href="/public/favicon.ico">
+        ${css}
         <title>Setsun</title>
       </head>
       <body>
