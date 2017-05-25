@@ -6,18 +6,13 @@ export default (html, css, initialState) => {
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="theme-color" content="#000000"/>
-        <link rel="manifest" href="/public/manifest.json">
-        <link rel="shortcut icon" href="/public/favicon.ico">
+        <link rel="manifest" href="/static/manifest.json">
+        <link rel="shortcut icon" href="/static/favicon.ico">
         ${css}
         <title>Setsun</title>
       </head>
       <body>
-        <noscript>
-          You need to enable JavaScript to run this app.
-        </noscript>
-        <div id="root">
-          ${html}
-        </div>
+        <div id="root">${html}</div>
         <script>
           window.__PRELOADED_STATE__ = ${JSON.stringify(initialState).replace(/</g, '\\u003c')}
         </script>

@@ -1,37 +1,50 @@
 import path from 'path';
 import koa from 'koa';
-import serve from 'koa-static';
+import serve from 'koa-static-cache';
 import mount from 'koa-mount';
+import compress from 'koa-compress';
 
 import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {createStore} from 'redux';
-import {Provider} from 'react-redux';
-import rootReducer from './data/rootReducer';
+import rootReducer from 'data/rootReducer';
 
 import {StaticRouter} from 'react-router';
 import {matchPath} from 'react-router-dom';
-import Routes from './routes/Routes';
 
-import {ThemeProvider, ServerStyleSheet} from 'styled-components';
-import theme from './style/theme';
+import {ServerStyleSheet} from 'styled-components';
+import theme from 'style/theme';
+import injectGlobalStyles from 'style/injectGlobalStyles';
 
-import renderFullPage from './utils/renderFullPage';
+import AppContainer from 'containers/AppContainer';
+import AppProvider from 'providers/AppProvider';
+
+import renderFullPage from 'utils/renderFullPage';
 
 const env = process.env.NODE_ENV || 'test';
 const port = process.env.PORT || 8800;
 
 const routes = [
-  '/'
+  '/',
 ];
 
 const staticFiles = new koa();
 
-staticFiles.use(serve(path.join(__dirname, '/client')));
+staticFiles.use(serve(path.join(__dirname, '/client'), {
+  maxAge: 365 * 24 * 60 * 60
+}));
+staticFiles.use(serve(path.join(__dirname, '../public'), {
+  maxAge: 365 * 24 * 60 * 60
+}));
 
 const app = new koa();
 
 app.use(mount('/static', staticFiles));
+
+app.use(compress({
+  threshold: 512,
+  flush: require('zlib').Z_SYNC_FLUSH
+}));
 
 app.use(async (ctx, next) => {
   const match = routes.reduce((acc, route) => (
@@ -43,15 +56,15 @@ app.use(async (ctx, next) => {
     const store = createStore(rootReducer);
     const initialState = store.getState();
 
+    injectGlobalStyles();
+
     const html = renderToString(
       sheet.collectStyles(
-        <ThemeProvider theme={theme}>
-          <Provider store={store}>
-            <StaticRouter context={{}} location={ctx.request.url}>
-              <Routes />
-            </StaticRouter>
-          </Provider>
-        </ThemeProvider>
+        <AppProvider store={store} theme={theme} locale="en">
+          <StaticRouter context={{}} location={ctx.request.url}>
+            <AppContainer />
+          </StaticRouter>
+        </AppProvider>
       )
     );
 

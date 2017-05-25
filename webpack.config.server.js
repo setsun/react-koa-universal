@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 const src = path.resolve(__dirname, 'src');
@@ -10,13 +11,16 @@ module.exports = {
     __filename: false
   },
   context: src,
-  entry: './server.js',
+  entry: 'app.server.js',
   output: {
     path: dist,
     filename: 'server.js'
   },
   resolve: {
-    modules: ['node_modules', 'src'],
+    modules: [
+      path.resolve('./node_modules'),
+      path.resolve('./src'),
+    ],
     extensions: ['*', '.js', '.json']
   },
   module: {
@@ -28,6 +32,11 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+    })
+  ],
   externals: nodeExternals(),
   devtool: 'source-map'
 };
