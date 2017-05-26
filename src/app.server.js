@@ -3,6 +3,11 @@ import koa from 'koa';
 import serve from 'koa-static-cache';
 import mount from 'koa-mount';
 import compress from 'koa-compress';
+import koaRouter from 'koa-router';
+import koaBody from 'koa-bodyparser';
+
+import {graphqlKoa} from 'graphql-server-koa';
+import {makeExecutableSchema} from 'graphql-tools';
 
 import React from 'react';
 import {renderToString} from 'react-dom/server';
@@ -28,6 +33,26 @@ const routes = [
   '/',
 ];
 
+const typeDefs = [`
+  type Query {
+    hello: String
+  }
+
+  schema {
+    query: Query
+  }
+`];
+
+const resolvers = {
+  Query: {
+    hello(root) {
+      return 'world';
+    }
+  }
+};
+
+const schema = makeExecutableSchema({typeDefs, resolvers});
+
 const staticFiles = new koa();
 
 staticFiles.use(serve(path.join(__dirname, '/client'), {
@@ -38,7 +63,14 @@ staticFiles.use(serve(path.join(__dirname, '../public'), {
 }));
 
 const app = new koa();
+const router = new koaRouter();
 
+app.use(koaBody());
+
+router.post('/graphql', graphqlKoa({schema}));
+
+app.use(router.routes());
+app.use(router.allowedMethods());
 app.use(mount('/static', staticFiles));
 
 app.use(compress({

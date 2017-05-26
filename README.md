@@ -8,7 +8,7 @@ This repo experiments with the latest bike shed technologies on the market today
 - GraphQL
 - Styled-Components
 - Redux
-- Relay
+- Relay Modern
 - React-Intl
 - React-Router
 - Flow
