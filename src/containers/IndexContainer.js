@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import styled from 'styled-components';
+import {FormattedMessage} from 'react-intl';
 
 const TextCenter = styled.div`
   text-align: center;
@@ -9,8 +10,19 @@ const TextCenter = styled.div`
 const IndexContainer = () => {
   return (
     <TextCenter>
-      <h2>React Koa Starter</h2>
-      To get started, edit <code>src/App.js</code> and save to reload.
+      <h2>
+        <FormattedMessage
+          id='index.header'
+          defaultMessage='React Koa Starter'
+        />
+      </h2>
+      <FormattedMessage
+        id='index.message'
+        defaultMessage='To get started, edit {fileName} and save to reload.'
+        values={{
+          fileName: <code>src/app.client.js</code>
+        }}
+      />
     </TextCenter>
   );
 };
