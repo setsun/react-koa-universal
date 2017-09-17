@@ -1,5 +1,5 @@
 import React from 'react';
-import {render} from 'react-dom';
+import {hydrate} from 'react-dom';
 
 import {createStore} from 'redux'
 import rootReducer from 'data/rootReducer';
@@ -19,12 +19,13 @@ delete window.__PRELOADED_STATE__;
 
 const store = createStore(rootReducer, initialState);
 
-render((
+hydrate(
   <AppProvider store={store} theme={theme} locale="en">
     <BrowserRouter>
       <AppContainer />
     </BrowserRouter>
-  </AppProvider>
-), document.getElementById('root'));
+  </AppProvider>,
+  document.getElementById("root")
+);
 
 registerServiceWorker();

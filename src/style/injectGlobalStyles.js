@@ -40,23 +40,5 @@ export default () => {
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
     }
-
-    .easeIn-enter,
-    .easeIn-appear,
-    .easeIn-leave.easeIn-leave-active {
-      position: relative;
-      top: -8px;
-      opacity: 0;
-      z-index: 1;
-    }
-
-    .easeIn-leave,
-    .easeIn-enter.easeIn-enter-active,
-    .easeIn-appear.easeIn-appear.active {
-      position: relative;
-      top: 0;
-      opacity: 1;
-      transition: opacity 300ms ease-in-out, top 300ms ease-in-out;
-    }
   `;
 };

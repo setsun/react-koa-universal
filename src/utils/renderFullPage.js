@@ -14,7 +14,7 @@ export default (html, css, initialState) => {
       <body>
         <div id="root">${html}</div>
         <script>
-          window.__PRELOADED_STATE__ = ${JSON.stringify(initialState).replace(/</g, '\\u003c')}
+          window.__PRELOADED_STATE__ = ${JSON.stringify(initialState).replace(/</g, "\\u003c")}
         </script>
         <script src="/static/client.js"></script>
       </body>

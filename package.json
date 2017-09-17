@@ -46,6 +46,7 @@
     "babel-runtime": "6.26.0",
     "compression-webpack-plugin": "^1.0.0",
     "css-loader": "0.28.7",
+    "cross-env": "^5.0.5",
     "dotenv": "4.0.0",
     "eslint": "4.7.0",
     "eslint-config-react-app": "^2.0.0",
@@ -64,11 +65,11 @@
     "webpack-node-externals": "^1.6.0"
   },
   "scripts": {
-    "dev:server": "NODE_ENV=development webpack --config webpack.config.server.js --watch",
-    "dev:client": "NODE_ENV=development webpack --config webpack.config.client.js --watch",
-    "dev:start": "NODE_ENV=development nodemon dist/server.js --watch dist/server.js",
-    "start": "NODE_ENV=production node dist/server.js",
-    "build": "NODE_ENV=production webpack --config webpack.config.server.js && NODE_ENV=production webpack --config webpack.config.client.js",
+    "dev:server": "cross-env NODE_ENV=development webpack --config webpack.config.server.js --watch",
+    "dev:client": "cross-env NODE_ENV=development webpack --config webpack.config.client.js --watch",
+    "dev:start": "cross-env NODE_ENV=development nodemon dist/server.js --watch dist/server.js",
+    "start": "cross-env NODE_ENV=production node dist/server.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.server.js && NODE_ENV=production webpack --config webpack.config.client.js",
     "flow": "flow"
   },
   "babel": {

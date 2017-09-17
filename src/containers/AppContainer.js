@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 
 import styled from 'styled-components';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import IndexContainer from 'containers/IndexContainer';
 import NotFoundContainer from 'containers/NotFoundContainer';
@@ -57,23 +56,20 @@ const Navbar = () => {
   );
 }
 
-export default () => {
-  return (
-    <Route render={({location}) => (
-      <AppWrapper>
-        <Navbar />
-        <CSSTransitionGroup
-          transitionName="easeIn"
-          transitionEnterTimeout={300}
-          transitionLeave={false}>
-          <div key={location.key}>
-            <Switch>
-              <Route exact path='/' component={IndexContainer} />
-              <Route component={NotFoundContainer} />
-            </Switch>
-          </div>
-        </CSSTransitionGroup>
-      </AppWrapper>
-    )}/>
-  );
-};
+export default () => (
+  <Route render={({ location }) => 
+    <AppWrapper>
+      <Navbar />
+      <Switch>
+        <Route
+          exact 
+          path="/" 
+          component={IndexContainer} 
+        />
+        <Route
+          component={NotFoundContainer} 
+        />
+      </Switch>
+    </AppWrapper>
+  }/>
+);
