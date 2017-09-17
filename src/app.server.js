@@ -30,8 +30,8 @@ const routes = [
 const app = new express();
 
 app.use(compression());
-app.use(express.static(path.join(__dirname, '/client')));
-app.use(express.static(path.join(__dirname, '../public')));
+app.use('/', express.static(path.join(__dirname, '/client')));
+app.use('/', express.static(path.join(__dirname, '../public')));
 
 app.get('*', (req, res) => {
   const match = routes.reduce((acc, route) => matchPath(req.url, route, { exact: true }) || acc, false);

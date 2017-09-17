@@ -13,7 +13,7 @@ const IndexContainer = () => {
       <h2>
         <FormattedMessage
           id='index.header'
-          defaultMessage='React Koa Starter'
+          defaultMessage='React Relay Starter'
         />
       </h2>
       <FormattedMessage

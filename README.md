@@ -1,10 +1,9 @@
-# React Koa Universal
+# React Relay Universal
 
 This repo experiments with the latest bike shed technologies on the market today.
 
 **Includes:**
 - React
-- Koa
 - GraphQL
 - Styled-Components
 - Redux
