@@ -1,13 +1,7 @@
 import path from 'path';
-import koa from 'koa';
-import serve from 'koa-static-cache';
-import mount from 'koa-mount';
-import compress from 'koa-compress';
-import koaRouter from 'koa-router';
-import koaBody from 'koa-bodyparser';
 
-import {graphqlKoa} from 'graphql-server-koa';
-import {makeExecutableSchema} from 'graphql-tools';
+import express from 'express';
+import compression from 'compression';
 
 import React from 'react';
 import {renderToString} from 'react-dom/server';
@@ -33,55 +27,14 @@ const routes = [
   '/',
 ];
 
-const typeDefs = [`
-  type Query {
-    hello: String
-  }
+const app = new express();
 
-  schema {
-    query: Query
-  }
-`];
+app.use(compression());
+app.use(express.static(path.join(__dirname, '/client')));
+app.use(express.static(path.join(__dirname, '../public')));
 
-const resolvers = {
-  Query: {
-    hello(root) {
-      return 'world';
-    }
-  }
-};
-
-const schema = makeExecutableSchema({typeDefs, resolvers});
-
-const staticFiles = new koa();
-
-staticFiles.use(serve(path.join(__dirname, '/client'), {
-  maxAge: 365 * 24 * 60 * 60
-}));
-staticFiles.use(serve(path.join(__dirname, '../public'), {
-  maxAge: 365 * 24 * 60 * 60
-}));
-
-const app = new koa();
-const router = new koaRouter();
-
-app.use(koaBody());
-
-router.post('/graphql', graphqlKoa({schema}));
-
-app.use(router.routes());
-app.use(router.allowedMethods());
-app.use(mount('/static', staticFiles));
-
-app.use(compress({
-  threshold: 512,
-  flush: require('zlib').Z_SYNC_FLUSH
-}));
-
-app.use(async (ctx, next) => {
-  const match = routes.reduce((acc, route) => (
-    matchPath(ctx.request.url, route, { exact: true}
-  ) || acc), false);
+app.get('*', (req, res) => {
+  const match = routes.reduce((acc, route) => matchPath(req.url, route, { exact: true }) || acc, false);
 
   if (match) {
     const sheet = new ServerStyleSheet();
@@ -93,7 +46,7 @@ app.use(async (ctx, next) => {
     const html = renderToString(
       sheet.collectStyles(
         <AppProvider store={store} theme={theme} locale="en">
-          <StaticRouter context={{}} location={ctx.request.url}>
+          <StaticRouter context={{}} location={req.url}>
             <AppContainer />
           </StaticRouter>
         </AppProvider>
@@ -102,10 +55,10 @@ app.use(async (ctx, next) => {
 
     const css = sheet.getStyleTags();
 
-    ctx.body = renderFullPage(html, css, initialState);
+    res.send(renderFullPage(html, css, initialState));
   }
 });
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log(`Started on env:${env} and port:${this.address().port}`);
 });
