@@ -63,12 +63,14 @@
     "webpack-node-externals": "^1.6.0"
   },
   "scripts": {
-    "dev:client": "cross-env NODE_ENV=development webpack --config webpack.config.client.js --watch",
-    "dev:server": "cross-env NODE_ENV=development webpack --config webpack.config.server.js --watch",
-    "dev:start": "cross-env NODE_ENV=development nodemon dist/server.js --watch dist/server.js",
-    "dev": "concurrently --kill-others \"npm run dev:client\" \"npm run dev:server\" \"npm run dev:start\"",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.server.js && NODE_ENV=production webpack --config webpack.config.client.js",
-    "start": "cross-env NODE_ENV=production node dist/server.js",
+    "watch:client": "cross-env NODE_ENV=development webpack --config webpack.config.client.js --watch",
+    "watch:server": "cross-env NODE_ENV=development webpack --config webpack.config.server.js --watch",
+    "watch": "concurrently --kill-others \"npm run watch:client\" \"npm run watch:server\"",        
+    "build:client": "cross-env NODE_ENV=production webpack --config webpack.config.client.js",
+    "build:server": "cross-env NODE_ENV=production webpack --config webpack.config.server.js",
+    "build": "concurrently --kill-others \"npm run build:client\" \"npm run build:server\"",
+    "start:dev": "cross-env NODE_ENV=development nodemon dist/server.js --watch dist/server.js",        
+    "start": "cross-env NODE_ENV=production node dist/server.js",        
     "relay": "relay-compiler --src ./src --schema path/schema.graphql",
     "flow": "flow"
   },
