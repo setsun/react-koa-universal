@@ -29,6 +29,7 @@
     "react-router-dom": "^4.1.1",
     "react-transition-group": "^2.2.0",
     "redux": "^3.6.0",
+    "relay-runtime": "^1.3.0",
     "styled-components": "2.1.2"
   },
   "devDependencies": {
@@ -38,7 +39,9 @@
     "babel-loader": "7.1.2",
     "babel-plugin-relay": "^1.0.1",
     "babel-preset-env": "^1.5.1",
-    "babel-preset-react-app": "^3.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-runtime": "6.26.0",
     "compression-webpack-plugin": "^1.0.0",
     "concurrently": "^3.5.0",
@@ -48,12 +51,10 @@
     "eslint": "4.7.0",
     "eslint-config-react-app": "^2.0.0",
     "eslint-loader": "1.9.0",
-    "eslint-plugin-flowtype": "2.35.1",
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-jsx-a11y": "6.0.2",
     "eslint-plugin-react": "7.3.0",
     "file-loader": "0.11.2",
-    "flow-bin": "^0.54.1",
     "nodemon": "^1.11.0",
     "relay-compiler": "^1.3.0",
     "source-map-support": "^0.4.15",
@@ -65,18 +66,19 @@
   "scripts": {
     "watch:client": "cross-env NODE_ENV=development webpack --config webpack.config.client.js --watch",
     "watch:server": "cross-env NODE_ENV=development webpack --config webpack.config.server.js --watch",
-    "watch": "concurrently --kill-others \"npm run watch:client\" \"npm run watch:server\"",        
+    "watch": "concurrently --kill-others \"npm run watch:client\" \"npm run watch:server\"",
     "build:client": "cross-env NODE_ENV=production webpack --config webpack.config.client.js",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack.config.server.js",
     "build": "concurrently --kill-others \"npm run build:client\" \"npm run build:server\"",
-    "start:dev": "cross-env NODE_ENV=development nodemon dist/server.js --watch dist/server.js",        
-    "start": "cross-env NODE_ENV=production node dist/server.js",        
-    "relay": "relay-compiler --src ./src --schema path/schema.graphql",
-    "flow": "flow"
+    "start:dev": "cross-env NODE_ENV=development nodemon dist/server.js --watch dist/server.js",
+    "start": "cross-env NODE_ENV=production node dist/server.js",
+    "relay": "relay-compiler --src ./src --schema path/schema.graphql"
   },
   "babel": {
     "presets": [
-      "react-app",
+      "react",
+      "stage-0",
+      "es2015",
       [
         "env",
         {
