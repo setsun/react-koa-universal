@@ -1,17 +1,18 @@
 import path from 'path';
 
 import express from 'express';
+import expressGraphQL from 'express-graphql';
 import compression from 'compression';
 
 import React from 'react';
-import {renderToString} from 'react-dom/server';
-import {createStore} from 'redux';
-import rootReducer from 'data/rootReducer';
+import { renderToString } from 'react-dom/server';
+import { StaticRouter } from 'react-router';
+import { matchPath } from 'react-router-dom';
 
-import {StaticRouter} from 'react-router';
-import {matchPath} from 'react-router-dom';
+import { createStore } from 'redux';
+import rootReducer from 'data/reducers/rootReducer';
 
-import {ServerStyleSheet} from 'styled-components';
+import { ServerStyleSheet } from 'styled-components';
 import theme from 'style/theme';
 import injectGlobalStyles from 'style/injectGlobalStyles';
 
@@ -20,12 +21,12 @@ import AppProvider from 'providers/AppProvider';
 
 import renderFullPage from 'utils/renderFullPage';
 
+import schema from 'data/schema';
+
 const env = process.env.NODE_ENV || 'test';
 const port = process.env.PORT || 8800;
 
-const routes = [
-  '/',
-];
+const routes = ['/'];
 
 const app = new express();
 
@@ -33,8 +34,19 @@ app.use(compression());
 app.use('/', express.static(path.join(__dirname, '/client')));
 app.use('/', express.static(path.join(__dirname, '../public')));
 
+app.use(
+  '/graphql',
+  expressGraphQL({
+    schema,
+    graphiql: true,
+  })
+);
+
 app.get('*', (req, res) => {
-  const match = routes.reduce((acc, route) => matchPath(req.url, route, { exact: true }) || acc, false);
+  const match = routes.reduce(
+    (acc, route) => matchPath(req.url, route, { exact: true }) || acc,
+    false
+  );
 
   if (match) {
     const sheet = new ServerStyleSheet();
@@ -59,6 +71,6 @@ app.get('*', (req, res) => {
   }
 });
 
-app.listen(port, function () {
+app.listen(port, function() {
   console.log(`Started on env:${env} and port:${this.address().port}`);
 });

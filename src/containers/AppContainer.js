@@ -1,18 +1,12 @@
 import React from 'react';
-import {
-  Route,
-  Link,
-  Switch
-} from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 
 import styled from 'styled-components';
 
 import IndexContainer from 'containers/IndexContainer';
 import NotFoundContainer from 'containers/NotFoundContainer';
 
-const AppWrapper = styled.div`
-  margin-top: 1rem;
-`
+const AppWrapper = styled.div`margin-top: 1rem;`;
 
 const NavigationContainer = styled.ul`
   position: fixed;
@@ -47,29 +41,25 @@ const Navbar = () => {
   return (
     <NavigationContainer>
       <NavigationLinkContainer>
-        <StyledLink to='/'>Home</StyledLink>
+        <StyledLink to="/">Home</StyledLink>
       </NavigationLinkContainer>
       <NavigationLinkContainer>
-        <StyledLink to='/whoops'>Whoops</StyledLink>
+        <StyledLink to="/whoops">Whoops</StyledLink>
       </NavigationLinkContainer>
     </NavigationContainer>
   );
-}
+};
 
 export default () => (
-  <Route render={({ location }) => 
-    <AppWrapper>
-      <Navbar />
-      <Switch>
-        <Route
-          exact 
-          path="/" 
-          component={IndexContainer} 
-        />
-        <Route
-          component={NotFoundContainer} 
-        />
-      </Switch>
-    </AppWrapper>
-  }/>
+  <Route
+    render={({ location }) => (
+      <AppWrapper>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={IndexContainer} />
+          <Route component={NotFoundContainer} />
+        </Switch>
+      </AppWrapper>
+    )}
+  />
 );

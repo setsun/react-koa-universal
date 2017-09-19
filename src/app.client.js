@@ -1,13 +1,13 @@
 import React from 'react';
-import {hydrate} from 'react-dom';
+import { hydrate } from 'react-dom';
 
-import {QueryRenderer, graphql} from 'react-relay';
-import {Environment, Network, RecordSource, Store} from 'relay-runtime';
+import { QueryRenderer, graphql } from 'react-relay';
+import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 
-import {createStore} from 'redux'
-import rootReducer from 'data/rootReducer';
+import { createStore } from 'redux';
+import rootReducer from 'data/reducers/rootReducer';
 
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import theme from 'style/theme';
 
@@ -23,10 +23,7 @@ delete window.__PRELOADED_STATE__;
 const store = createStore(rootReducer, initialState);
 
 const modernEnvironment = new Environment({
-  network: Network.create((
-    operation,
-    variables,
-  ) => {
+  network: Network.create((operation, variables) => {
     return fetch('/graphql', {
       method: 'POST',
       headers: {
@@ -64,7 +61,7 @@ hydrate(
       );
     }}
   />,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 registerServiceWorker();

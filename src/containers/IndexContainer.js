@@ -1,26 +1,24 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-const TextCenter = styled.div`
-  text-align: center;
-`;
+const TextCenter = styled.div`text-align: center;`;
 
 const IndexContainer = () => {
   return (
     <TextCenter>
       <h2>
         <FormattedMessage
-          id='index.header'
-          defaultMessage='React Relay Starter'
+          id="index.header"
+          defaultMessage="React Relay Starter"
         />
       </h2>
       <FormattedMessage
-        id='index.message'
-        defaultMessage='To get started, edit {fileName} and save to reload.'
+        id="index.message"
+        defaultMessage="To get started, edit {fileName} and save to reload."
         values={{
-          fileName: <code>src/app.client.js</code>
+          fileName: <code>src/app.client.js</code>,
         }}
       />
     </TextCenter>
@@ -35,7 +33,4 @@ const mapDispatchToProps = () => {
   return {};
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(IndexContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(IndexContainer);

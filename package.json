@@ -7,18 +7,14 @@
     "type": "git",
     "url": "https://github.com/Setsun/react-relay-universal"
   },
-  "keywords": [
-    "react",
-    "relay",
-    "pwa",
-    "ssr"
-  ],
+  "keywords": ["react", "relay", "pwa", "ssr"],
   "dependencies": {
     "compression": "^1.7.0",
     "express": "^4.15.4",
     "express-graphql": "^0.6.11",
     "graphql": "^0.11.3",
     "graphql-relay": "^0.5.2",
+    "graphql-tools": "^1.2.2",
     "history": "^4.6.1",
     "react": "^16.0.0-rc.3",
     "react-dom": "^16.0.0-rc.3",
@@ -49,13 +45,17 @@
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
     "eslint": "4.7.0",
-    "eslint-config-react-app": "^2.0.0",
+    "eslint-config-eslint": "^4.0.0",
+    "eslint-config-prettier": "^2.5.0",
     "eslint-loader": "1.9.0",
     "eslint-plugin-import": "2.7.0",
-    "eslint-plugin-jsx-a11y": "6.0.2",
+    "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "7.3.0",
     "file-loader": "0.11.2",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.2.1",
     "nodemon": "^1.11.0",
+    "prettier": "^1.7.0",
     "relay-compiler": "^1.3.0",
     "source-map-support": "^0.4.15",
     "style-loader": "0.18.2",
@@ -64,15 +64,28 @@
     "webpack-node-externals": "^1.6.0"
   },
   "scripts": {
-    "watch:client": "cross-env NODE_ENV=development webpack --config webpack.config.client.js --watch",
-    "watch:server": "cross-env NODE_ENV=development webpack --config webpack.config.server.js --watch",
-    "watch": "concurrently --kill-others \"npm run watch:client\" \"npm run watch:server\"",
-    "build:client": "cross-env NODE_ENV=production webpack --config webpack.config.client.js",
-    "build:server": "cross-env NODE_ENV=production webpack --config webpack.config.server.js",
-    "build": "concurrently --kill-others \"npm run build:client\" \"npm run build:server\"",
-    "start:dev": "cross-env NODE_ENV=development nodemon dist/server.js --watch dist/server.js",
+    "watch:client":
+      "cross-env NODE_ENV=development webpack --config webpack.config.client.js --watch",
+    "watch:server":
+      "cross-env NODE_ENV=development webpack --config webpack.config.server.js --watch",
+    "watch":
+      "concurrently --kill-others \"npm run watch:client\" \"npm run watch:server\"",
+    "build:client":
+      "cross-env NODE_ENV=production webpack --config webpack.config.client.js",
+    "build:server":
+      "cross-env NODE_ENV=production webpack --config webpack.config.server.js",
+    "build":
+      "concurrently --kill-others \"npm run build:client\" \"npm run build:server\"",
+    "start:dev":
+      "cross-env NODE_ENV=development nodemon dist/server.js --watch dist/server.js",
     "start": "cross-env NODE_ENV=production node dist/server.js",
-    "relay": "relay-compiler --src ./src --schema path/schema.graphql"
+    "precommit": "lint-staged",
+    "relay": "relay-compiler --src ./src --schema path/schema.graphql",
+    "eslint-prettier-check":
+      "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
+  },
+  "lint-staged": {
+    "*.{js,json,css}": ["prettier --write", "git add"]
   },
   "babel": {
     "presets": [
@@ -88,11 +101,29 @@
         }
       ]
     ],
-    "plugins": [
-      "relay"
-    ]
+    "plugins": ["relay"]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "printWidth": 80
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": ["eslint", "prettier"],
+    "plugins": ["import", "react", "prettier"],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "bracketSpacing": true,
+          "tabWidth": 2,
+          "trailingComma": "es5",
+          "printWidth": 80
+        }
+      ]
+    }
   }
 }
