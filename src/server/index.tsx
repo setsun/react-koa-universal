@@ -1,10 +1,10 @@
 import path from 'path';
-
 import express from 'express';
 
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import { ServerLocation } from '@reach/router';
+import { renderToString } from 'react-dom/server';
+import { StaticRouter } from 'react-router';
+import { matchPath } from 'react-router-dom';
 
 import { ServerStyleSheet } from 'styled-components';
 import theme from '../style/theme';
@@ -18,24 +18,30 @@ import renderFullPage from '../utils/renderFullPage';
 const env = process.env.NODE_ENV || 'test';
 const port = process.env.PORT || 8800;
 
-const routes = ['/'];
-
 const app = new express();
+const routes = ['/'];
 
 app.use('/', express.static(path.join(__dirname, '/client')));
 app.use('/', express.static(path.join(__dirname, '../public')));
 
 app.get('*', (req, res) => {
+  const match = routes.reduce(
+    (acc, route) => matchPath(req.url, route, { exact: true }) || acc,
+    false
+  );
+
+  if (!match) return;
+
   const sheet = new ServerStyleSheet();
 
   injectGlobalStyles();
 
-  const html = ReactDOMServer.renderToString(
+  const html = renderToString(
     sheet.collectStyles(
       <AppProvider theme={theme} locale="en">
-        <ServerLocation url={req.url}>
+        <StaticRouter context={{}} location={req.url}>
           <AppContainer />
-        </ServerLocation>
+        </StaticRouter>
       </AppProvider>,
     )
   );
@@ -46,5 +52,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, function() {
-  console.log(`Started on env:${env} and port:${this.address().port}`);
+  console.log(`Started on env:${env} and http://localhost:${this.address().port}`);
 });

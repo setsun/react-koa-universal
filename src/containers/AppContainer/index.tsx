@@ -1,11 +1,15 @@
 import React from 'react';
-import { Router, Link } from "@reach/router"
+import { Route, Link, Switch } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 import styled from 'styled-components';
 
 const AppWrapper = styled.div`
   margin-top: 1rem;
+`;
+
+const TextCenter = styled.div`
+  text-align: center;
 `;
 
 const NavigationContainer = styled.ul`
@@ -51,16 +55,16 @@ const Navbar = () => {
 };
 
 export default () => (
-  <Link
+  <Route
     render={({ location }) => (
       <AppWrapper>
         <Navbar />
-        <Router>
-          <Link
+        <Switch>
+          <Route
             exact
             path="/"
             render={() => (
-              <>
+              <TextCenter>
                 <h2>
                   <FormattedMessage
                     id="index.header"
@@ -74,10 +78,10 @@ export default () => (
                     fileName: <code>src/app.client.js</code>,
                   }}
                 />
-              </>
+              </TextCenter>
             )}
           />
-        </Router>
+        </Switch>
       </AppWrapper>
     )}
   />
