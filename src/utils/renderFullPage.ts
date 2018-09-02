@@ -13,7 +13,7 @@ export default (html, css) => {
       </head>
       <body>
         <div id="root">${html}</div>
-        <script src="/client.js"></script>
+        <script src="/index.js"></script>
       </body>
     </html>
   `;

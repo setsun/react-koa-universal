@@ -2,12 +2,13 @@ const webpack = require('webpack');
 const path = require('path');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const src = path.resolve(__dirname, 'src');
-const dist = path.resolve(__dirname, 'dist/');
+const dist = path.resolve(__dirname, 'dist/client');
 
 module.exports = {
   target: 'web',
+  mode: 'development',
   context: src,
-  entry: 'app.js',
+  entry: 'app.tsx',
   output: {
     path: dist,
     filename: 'index.js',
@@ -15,7 +16,7 @@ module.exports = {
   },
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
-    extensions: ['*', '.js', '.ts', '.json'],
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx', '.json'],
   },
   module: {
     rules: [

@@ -1,7 +1,4 @@
-import path from 'path';
-import express from 'express';
-
-import React from 'react';
+import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { matchPath } from 'react-router-dom';
@@ -15,13 +12,16 @@ import AppProvider from '../providers/AppProvider';
 
 import renderFullPage from '../utils/renderFullPage';
 
+const path = require('path');
+const express = require('express');
+
 const env = process.env.NODE_ENV || 'test';
 const port = process.env.PORT || 8800;
 
-const app = new express();
+const app = express();
 const routes = ['/'];
 
-app.use('/', express.static(path.join(__dirname, '/client')));
+app.use('/', express.static(path.join(__dirname, 'dist/client')));
 app.use('/', express.static(path.join(__dirname, '../public')));
 
 app.get('*', (req, res) => {
