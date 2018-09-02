@@ -9,19 +9,16 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { matchPath } from 'react-router-dom';
 
-import { createStore } from 'redux';
-import rootReducer from 'data/reducers/rootReducer';
-
 import { ServerStyleSheet } from 'styled-components';
-import theme from 'style/theme';
-import injectGlobalStyles from 'style/injectGlobalStyles';
+import theme from '../style/theme';
+import injectGlobalStyles from '../style/injectGlobalStyles';
 
-import AppContainer from 'containers/AppContainer';
-import AppProvider from 'providers/AppProvider';
+import AppContainer from '../containers/AppContainer';
+import AppProvider from '../providers/AppProvider';
 
-import renderFullPage from 'utils/renderFullPage';
+import renderFullPage from '../utils/renderFullPage';
 
-import schema from 'data/schema';
+import schema from '../data/schema';
 
 const env = process.env.NODE_ENV || 'test';
 const port = process.env.PORT || 8800;
@@ -50,14 +47,12 @@ app.get('*', (req, res) => {
 
   if (match) {
     const sheet = new ServerStyleSheet();
-    const store = createStore(rootReducer);
-    const initialState = store.getState();
 
     injectGlobalStyles();
 
     const html = renderToString(
       sheet.collectStyles(
-        <AppProvider store={store} theme={theme} locale="en">
+        <AppProvider theme={theme} locale="en">
           <StaticRouter context={{}} location={req.url}>
             <AppContainer />
           </StaticRouter>
@@ -67,7 +62,7 @@ app.get('*', (req, res) => {
 
     const css = sheet.getStyleTags();
 
-    res.send(renderFullPage(html, css, initialState));
+    res.send(renderFullPage(html, css));
   }
 });
 

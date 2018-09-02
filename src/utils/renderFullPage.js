@@ -1,4 +1,4 @@
-export default (html, css, initialState) => {
+export default (html, css) => {
   return `
     <!doctype html>
     <html lang="en">
@@ -13,12 +13,6 @@ export default (html, css, initialState) => {
       </head>
       <body>
         <div id="root">${html}</div>
-        <script>
-          window.__PRELOADED_STATE__ = ${JSON.stringify(initialState).replace(
-            /</g,
-            '\\u003c'
-          )}
-        </script>
         <script src="/client.js"></script>
       </body>
     </html>

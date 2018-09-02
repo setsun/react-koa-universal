@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 import styled from 'styled-components';
 
-import IndexContainer from 'containers/IndexContainer';
-import NotFoundContainer from 'containers/NotFoundContainer';
-
-const AppWrapper = styled.div`margin-top: 1rem;`;
+const AppWrapper = styled.div`
+  margin-top: 1rem;
+`;
 
 const NavigationContainer = styled.ul`
   position: fixed;
@@ -56,8 +56,27 @@ export default () => (
       <AppWrapper>
         <Navbar />
         <Switch>
-          <Route exact path="/" component={IndexContainer} />
-          <Route component={NotFoundContainer} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <>
+                <h2>
+                  <FormattedMessage
+                    id="index.header"
+                    defaultMessage="React Apollo Starter"
+                  />
+                </h2>
+                <FormattedMessage
+                  id="index.message"
+                  defaultMessage="To get started, edit {fileName} and save to reload."
+                  values={{
+                    fileName: <code>src/app.client.js</code>,
+                  }}
+                />
+              </>
+            )}
+          />
         </Switch>
       </AppWrapper>
     )}
