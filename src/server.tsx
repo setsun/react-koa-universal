@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { StaticRouter } from 'react-router';
-import { matchPath } from 'react-router-dom';
 
 import ApolloClient from 'apollo-client';
 import { renderToStringWithData } from 'react-apollo';
@@ -11,8 +10,8 @@ import { ServerStyleSheet } from 'styled-components';
 import theme from './style/theme';
 import injectGlobalStyles from './style/injectGlobalStyles';
 
-import AppContainer from './containers/AppContainer';
 import AppProvider from './providers/AppProvider';
+import AppLayout from './layouts/AppLayout';
 
 const path = require('path');
 const express = require('express');
@@ -22,7 +21,6 @@ const env = process.env.NODE_ENV || 'test';
 const port = process.env.PORT || 8800;
 
 const app = express();
-const routes = ['/'];
 
 app.use('/', express.static(path.join(__dirname, '../public')));
 
@@ -37,14 +35,7 @@ if (process.env.NODE_ENV === 'production') {
   );
 }
 
-app.get('*', (req, res) => {
-  const match = routes.reduce(
-    (acc, route) => matchPath(req.url, route, { exact: true }) || acc,
-    false
-  );
-
-  if (!match) return;
-
+app.use((req, res) => {
   const client = new ApolloClient({
     ssrMode: true,
     link: ApolloLink.from([]),
@@ -59,7 +50,7 @@ app.get('*', (req, res) => {
     sheet.collectStyles(
       <AppProvider client={client} theme={theme} locale="en">
         <StaticRouter context={{}} location={req.url}>
-          <AppContainer />
+          <AppLayout />
         </StaticRouter>
       </AppProvider>
     )
@@ -78,6 +69,9 @@ app.get('*', (req, res) => {
           <meta name="theme-color" content="#000000"/>
           <link rel="manifest" href="/manifest.json">
           <link rel="shortcut icon" href="/favicon.ico">
+          <style>
+            @import url('https://fonts.googleapis.com/css?family=Roboto');
+          </style>
           ${css}
         </head>
         <body>

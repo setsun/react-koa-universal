@@ -3,6 +3,7 @@ export default {
     brand: '#0366d6',
     white: '#fff',
     black: '#000',
+    gray: '#999',
   },
   breakpoints: {
     sm: '400px',

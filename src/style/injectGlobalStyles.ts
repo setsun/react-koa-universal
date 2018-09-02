@@ -26,7 +26,7 @@ export default () => {
     }
 
     body {
-      font-family: sans-serif;
+      font-family: Roboto, serif;
       margin: 0;
     }
 

@@ -15,7 +15,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import theme from './style/theme';
 
 import AppProvider from './providers/AppProvider';
-import AppContainer from './containers/AppContainer';
+import AppLayout from './layouts/AppLayout';
 
 const client = new ApolloClient({
   ssrForceFetchDelay: 100,
@@ -27,7 +27,7 @@ const client = new ApolloClient({
 hydrate(
   <AppProvider client={client} theme={theme} locale="en">
     <BrowserRouter>
-      <AppContainer />
+      <AppLayout />
     </BrowserRouter>
   </AppProvider>,
   document.getElementById('root')
