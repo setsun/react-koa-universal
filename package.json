@@ -14,7 +14,9 @@
     "ssr"
   ],
   "dependencies": {
+    "apollo-cache-inmemory": "1.2.9",
     "apollo-client": "2.4.1",
+    "apollo-link": "1.2.2",
     "apollo-server": "2.0.5",
     "apollo-server-express": "2.0.4",
     "express": "4.16.3",
@@ -31,7 +33,7 @@
     "react-router-dom": "4.3.1",
     "react-transition-group": "2.4.0",
     "styled-components": "3.4.5",
-    "typescript": "3.0.3"
+    "zen-observable": "0.8.9"
   },
   "devDependencies": {
     "@babel/cli": "7.0.0",
@@ -59,6 +61,7 @@
     "nodemon": "1.18.4",
     "prettier": "1.14.2",
     "ts-loader": "4.5.0",
+    "typescript": "3.0.3",
     "webpack": "4.17.1",
     "webpack-cli": "3.1.0",
     "webpack-serve": "2.0.2",

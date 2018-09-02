@@ -1,12 +1,15 @@
 import * as React from 'react';
+import { ApolloProvider } from 'react-apollo';
 import { ThemeProvider } from 'styled-components';
 import { IntlProvider } from 'react-intl';
 
-const AppProvider = ({ children, theme, locale }) => {
+const AppProvider = ({ client, theme, locale, children }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <IntlProvider locale="en">{children}</IntlProvider>
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={theme}>
+        <IntlProvider locale={locale}>{children}</IntlProvider>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 };
 
