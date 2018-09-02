@@ -14,8 +14,6 @@ import theme from 'style/theme';
 import AppContainer from 'containers/AppContainer';
 import AppProvider from 'providers/AppProvider';
 
-import registerServiceWorker from 'utils/registerServiceWorker';
-
 const initialState = window.__PRELOADED_STATE__;
 
 delete window.__PRELOADED_STATE__;
@@ -63,5 +61,3 @@ hydrate(
   />,
   document.getElementById('root')
 );
-
-registerServiceWorker();
