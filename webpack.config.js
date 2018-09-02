@@ -2,16 +2,16 @@ const webpack = require('webpack');
 const path = require('path');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const src = path.resolve(__dirname, 'src');
-const dist = path.resolve(__dirname, 'dist/client');
+const dist = path.resolve(__dirname, 'dist');
 
 module.exports = {
   target: 'web',
   mode: 'development',
   context: src,
-  entry: 'app.tsx',
+  entry: 'client.tsx',
   output: {
     path: dist,
-    filename: 'index.js',
+    filename: 'client.js',
     publicPath: '/',
   },
   resolve: {
@@ -31,8 +31,9 @@ module.exports = {
         use: [{ loader: 'babel-loader' }],
       },
       {
-        test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        use: [{ loader: 'graphql-tag/loader' }],
       },
     ],
   },
@@ -41,4 +42,7 @@ module.exports = {
       swSrc: './src/sw.js',
     }),
   ],
+  serve: {
+    port: 8888,
+  },
 };
