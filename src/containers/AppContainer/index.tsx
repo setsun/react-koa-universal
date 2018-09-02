@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Router, Link } from "@reach/router"
 import { FormattedMessage } from 'react-intl';
 
 import styled from 'styled-components';
@@ -51,12 +51,12 @@ const Navbar = () => {
 };
 
 export default () => (
-  <Route
+  <Link
     render={({ location }) => (
       <AppWrapper>
         <Navbar />
-        <Switch>
-          <Route
+        <Router>
+          <Link
             exact
             path="/"
             render={() => (
@@ -77,7 +77,7 @@ export default () => (
               </>
             )}
           />
-        </Switch>
+        </Router>
       </AppWrapper>
     )}
   />

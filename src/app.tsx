@@ -1,6 +1,6 @@
 import React from 'react';
 import { hydrate } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from '@reach/router';
 
 import theme from 'style/theme';
 
@@ -9,9 +9,9 @@ import AppProvider from 'providers/AppProvider';
 
 hydrate(
   <AppProvider theme={theme} locale="en">
-    <BrowserRouter>
+    <Router>
       <AppContainer />
-    </BrowserRouter>
+    </Router>
   </AppProvider>,
   document.getElementById('root')
 );
