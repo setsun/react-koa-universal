@@ -1,4 +1,5 @@
 import { injectGlobal } from 'styled-components';
+import theme from './theme';
 
 export default () => {
   injectGlobal`
@@ -13,13 +14,13 @@ export default () => {
       font-size: 16px;
     }
 
-    @media screen and (min-width: 900px) {
+    @media screen and (min-width: ${theme.breakpoints.md}) {
       html {
         font-size: 18px;
       }
     }
 
-    @media screen and (min-width: 1200px) {
+    @media screen and (min-width: ${theme.breakpoints.lg}) {
       html {
         font-size: 20px;
       }
@@ -37,8 +38,8 @@ export default () => {
     h4,
     h5,
     h6 {
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
+      margin-top: ${theme.spacing[2]};
+      margin-bottom: ${theme.spacing[2]};
     }
   `;
 };

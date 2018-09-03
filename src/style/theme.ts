@@ -10,4 +10,5 @@ export default {
     md: '800px',
     lg: '1200px',
   },
+  spacing: [...new Array(32)].map((_, index) => `${index * 0.25}rem`),
 };

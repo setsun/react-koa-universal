@@ -8,22 +8,22 @@ import NotFound from '../../pages/NotFound';
 const LinkContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin: 1rem;
+  margin: ${({ theme }) => theme.spacing[3]};
 `;
 
 const StyledLink = styled(Link)`
   display: inline-block;
-  margin-left: 1rem;
+  margin-left: ${({ theme }) => theme.spacing[3]};
   text-decoration: none;
   text-transform: uppercase;
-  color: ${props => props.theme.colors.gray};
+  color: ${({ theme }) => theme.colors.gray};
 
   &:visited {
-    color: ${props => props.theme.colors.gray};
+    color: ${({ theme }) => theme.colors.gray};
   }
 
   &:active {
-    color: ${props => props.theme.colors.black};
+    color: ${({ theme }) => theme.colors.black};
   }
 `;
 
