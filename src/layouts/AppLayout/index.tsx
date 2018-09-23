@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import styled from 'styled-components';
+import GlobalStyle from '../../style/GlobalStyle';
 
 import Home from '../../pages/Home';
 import NotFound from '../../pages/NotFound';
@@ -40,6 +41,7 @@ export default () => (
   <Route
     render={({ location }) => (
       <>
+        <GlobalStyle />
         <Navbar currentPath={location.pathname} />
         <Switch>
           <Route exact path="/" component={Home} />

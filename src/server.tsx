@@ -8,7 +8,6 @@ import { ApolloLink } from 'apollo-link';
 
 import { ServerStyleSheet } from 'styled-components';
 import theme from './style/theme';
-import injectGlobalStyles from './style/injectGlobalStyles';
 
 import AppProvider from './providers/AppProvider';
 import AppLayout from './layouts/AppLayout';
@@ -35,6 +34,8 @@ if (process.env.NODE_ENV === 'production') {
   );
 }
 
+app.use('/graphql', () => {});
+
 app.use((req, res) => {
   const client = new ApolloClient({
     ssrMode: true,
@@ -43,8 +44,6 @@ app.use((req, res) => {
   });
 
   const sheet = new ServerStyleSheet();
-
-  injectGlobalStyles();
 
   renderToStringWithData(
     sheet.collectStyles(
