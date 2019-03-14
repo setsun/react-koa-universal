@@ -1,6 +1,6 @@
 {
   "name": "react-apollo-universal",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-rc.1",
   "description": "React Apollo Universal starter backed by Express",
   "license": "MIT",
   "repository": {
