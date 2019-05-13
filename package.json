@@ -13,80 +13,39 @@
     "pwa",
     "ssr"
   ],
-  "dependencies": {
-    "apollo-cache-inmemory": "1.5.1",
-    "apollo-client": "2.5.1",
-    "apollo-link": "1.2.11",
-    "apollo-server": "2.4.8",
-    "apollo-server-express": "2.4.8",
-    "express": "4.16.4",
-    "graphql": "14.2.1",
-    "graphql-tag": "2.10.1",
-    "graphql-tools": "4.0.4",
-    "history": "4.9.0",
-    "http-proxy-middleware": "0.19.1",
-    "react": "16.8.6",
-    "react-apollo": "2.5.5",
-    "react-dom": "16.8.6",
-    "react-intl": "2.8.0",
-    "react-router": "5.0.0",
-    "react-router-dom": "5.0.0",
-    "react-transition-group": "4.0.0",
-    "styled-components": "^4.2.0",
-    "zen-observable": "0.8.14"
-  },
-  "devDependencies": {
-    "@babel/cli": "7.4.4",
-    "@babel/core": "7.4.4",
-    "@babel/node": "7.2.2",
-    "@types/express": "4.16.1",
-    "@types/react": "16.8.15",
-    "@types/react-dom": "16.8.4",
-    "babel-eslint": "10.0.1",
-    "babel-loader": "8.0.5",
-    "babel-preset-setsun": "2.2.1",
-    "concurrently": "4.1.0",
-    "cross-env": "5.2.0",
-    "dotenv": "7.0.0",
-    "eslint": "5.16.0",
-    "eslint-config-eslint": "5.0.1",
-    "eslint-config-prettier": "4.2.0",
-    "eslint-config-setsun": "2.2.1",
-    "eslint-plugin-import": "2.17.2",
-    "eslint-plugin-node": "8.0.1",
-    "eslint-plugin-prettier": "3.0.1",
-    "eslint-plugin-react": "7.12.4",
-    "husky": "2.2.0",
-    "lint-staged": "8.1.5",
-    "nodemon": "1.19.0",
-    "prettier": "1.17.0",
-    "ts-loader": "5.4.5",
-    "typescript": "3.4.5",
-    "webpack": "4.30.0",
-    "webpack-cli": "3.3.1",
-    "webpack-serve": "3.1.0",
-    "workbox-webpack-plugin": "4.3.1"
-  },
   "scripts": {
     "start": "concurrently --kill-others \"npm run start:client\" \"npm run start:server\"",
-    "start:client": "cross-env NODE_ENV=development webpack-serve --config webpack.config.js",
+    "start:client": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js",
     "start:server": "cross-env NODE_ENV=development nodemon src/server --exec babel-node --extensions '.ts,.tsx'",
-    "build": "npm run build:client && npm run build:server",
+    "build": "concurrently --kill-others \"npm run build:client\" \"npm run build:server\"",
     "build:client": "cross-env NODE_ENV=production webpack --config webpack.config.js",
-    "build:server": "cross-env NODE_ENV=production babel src/server.tsx --out-file dist/server.js",
-    "serve": "node dist/server.js",
-    "type-check": "tsc",
-    "eslint-prettier-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
+    "build:server": "cross-env NODE_ENV=production babel src/server.tsx --out-file dist/server.js"
   },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
-      "prettier --write",
-      "git add"
-    ]
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client": "2.5.1",
+    "apollo-link": "^1.2.11",
+    "apollo-server": "2.5.0",
+    "apollo-server-express": "2.5.0",
+    "express": "^5.0.0-alpha.7",
+    "graphql": "^14.3.0",
+    "passport": "^0.4.0",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.5",
+    "react-dom": "^16.8.6",
+    "stripe": "^6.34.0",
+    "styled-components": "^5.0.0-4.canary-sheet"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "devDependencies": {
+    "@babel/core": "7.4.4",
+    "@babel/node": "^7.2.2",
+    "babel-loader": "^8.0.6",
+    "babel-preset-setsun": "2.3.0",
+    "concurrently": "4.1.0",
+    "cross-env": "5.2.0",
+    "nodemon": "^1.19.0",
+    "webpack": "4.31.0",
+    "webpack-cli": "3.3.2",
+    "webpack-dev-server": "3.3.1"
   }
 }

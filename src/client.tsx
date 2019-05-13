@@ -1,12 +1,5 @@
-declare global {
-  interface Window {
-    __APOLLO_STATE__: any;
-  }
-}
-
 import * as React from 'react';
 import { hydrate } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 
 import ApolloClient from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
@@ -14,8 +7,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import theme from './style/theme';
 
-import AppProvider from './providers/AppProvider';
-import AppLayout from './layouts/AppLayout';
+import App from './components/App';
+import Provider from './components/Provider';
 
 const client = new ApolloClient({
   ssrForceFetchDelay: 100,
@@ -25,10 +18,8 @@ const client = new ApolloClient({
 });
 
 hydrate(
-  <AppProvider client={client} theme={theme} locale="en">
-    <BrowserRouter>
-      <AppLayout />
-    </BrowserRouter>
-  </AppProvider>,
+  <Provider client={client} theme={theme}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
