@@ -1,7 +1,7 @@
 {
   "name": "react-apollo-universal",
   "version": "1.0.0-rc.1",
-  "description": "React Apollo Universal starter backed by Express",
+  "description": "React Apollo Universal starter backed by Koa",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,30 +22,38 @@
     "build:server": "cross-env NODE_ENV=production babel src/server.tsx --out-file dist/server.js"
   },
   "dependencies": {
-    "apollo-cache-inmemory": "^1.5.1",
-    "apollo-client": "2.5.1",
+    "@callstack/react-theme-provider": "^3.0.0",
+    "apollo-cache-inmemory": "^1.6.0",
+    "apollo-client": "2.6.0",
     "apollo-link": "^1.2.11",
-    "apollo-server": "2.5.0",
-    "apollo-server-express": "2.5.0",
-    "express": "^5.0.0-alpha.7",
-    "graphql": "^14.3.0",
-    "passport": "^0.4.0",
+    "apollo-server": "2.6.1",
+    "apollo-server-koa": "^2.6.1",
+    "graphql": "^14.3.1",
+    "koa": "^2.7.0",
+    "koa-route": "^3.2.0",
+    "koa-serve": "^0.1.7",
+    "koa-static": "^5.0.0",
+    "linaria": "^1.3.1",
+    "lodash": "^4.17.11",
     "react": "^16.8.6",
-    "react-apollo": "^2.5.5",
+    "react-apollo": "^2.5.6",
     "react-dom": "^16.8.6",
-    "stripe": "^7.0.0",
-    "styled-components": "^5.0.0-4.canary-sheet"
+    "react-hot-loader": "^4.8.8",
+    "stripe": "^7.1.0"
   },
   "devDependencies": {
-    "@babel/core": "7.4.4",
-    "@babel/node": "^7.2.2",
+    "@babel/core": "7.4.5",
+    "@babel/node": "^7.4.5",
     "babel-loader": "^8.0.6",
     "babel-preset-setsun": "2.3.0",
     "concurrently": "4.1.0",
     "cross-env": "5.2.0",
-    "nodemon": "^1.19.0",
-    "webpack": "4.31.0",
+    "mini-css-extract-plugin": "^0.7.0",
+    "nodemon": "^1.19.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "terser-webpack-plugin": "^1.3.0",
+    "webpack": "4.32.2",
     "webpack-cli": "3.3.2",
-    "webpack-dev-server": "3.4.1"
+    "webpack-dev-server": "3.5.1"
   }
 }

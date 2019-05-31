@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { ThemeProvider } from 'styled-components';
 
-const Provider = ({ client, theme, children }) => {
+const Provider = ({ client, children }) => {
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        {children}
-      </ThemeProvider>
+      {children}
     </ApolloProvider>
   );
 };

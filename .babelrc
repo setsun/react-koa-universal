@@ -1,3 +1,6 @@
 {
-  "presets": ["setsun"]
+  "presets": [
+    "setsun",
+    "linaria/babel"
+  ]
 }

@@ -10,6 +10,10 @@ import theme from './style/theme';
 import App from './components/App';
 import Provider from './components/Provider';
 
+declare var window: {
+  __APOLLO_STATE__: any;
+};
+
 const client = new ApolloClient({
   ssrForceFetchDelay: 100,
   link: ApolloLink.from([]),
@@ -18,7 +22,7 @@ const client = new ApolloClient({
 });
 
 hydrate(
-  <Provider client={client} theme={theme}>
+  <Provider client={client}>
     <App />
   </Provider>,
   document.getElementById('root')
