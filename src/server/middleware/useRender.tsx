@@ -8,12 +8,11 @@ import { collect } from 'linaria/server';
 import App from '../../components/App';
 import Provider from '../../components/Provider';
 
+const route = require('koa-route');
 const fs = require('fs');
 
 const useRender = (app) => {
-  async function render ({ response }, next) {
-    await next();
-
+  async function render ({ response }) {
     const css = fs.readFileSync('./dist/styles.css', 'utf8');
     const client = new ApolloClient({
       ssrMode: true,
@@ -60,7 +59,7 @@ const useRender = (app) => {
       });
   }
 
-  app.use(render);
+  app.use(route.get('*', render));
 
   return app;
 }

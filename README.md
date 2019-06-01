@@ -12,7 +12,9 @@ Stability is not a priority of this project, but I welcome inquiring minds to ex
 - React
 - Apollo
 - Linaria (CSS-in-JS)
-- React-Router
+- Reach Router
 - Webpack
 - Workbox
 - TypeScript
+- Rust
+- WebAssembly

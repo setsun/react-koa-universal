@@ -12,7 +12,7 @@ module.exports = {
   target: 'web',
   mode: isProduction ? 'production' : 'development',
   context: src,
-  entry: 'client.tsx',
+  entry: 'app-client.tsx',
   output: {
     path: dist,
     filename: '[name]-[hash].js',

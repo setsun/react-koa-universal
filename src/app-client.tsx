@@ -5,8 +5,6 @@ import ApolloClient from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import theme from './style/theme';
-
 import App from './components/App';
 import Provider from './components/Provider';
 
