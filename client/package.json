@@ -23,17 +23,13 @@
   },
   "dependencies": {
     "@callstack/react-theme-provider": "^3.0.0",
-    "@koa/cors": "^3.0.0",
     "@reach/router": "^1.2.1",
     "apollo-cache-inmemory": "^1.6.0",
     "apollo-client": "2.6.0",
     "apollo-link": "^1.2.11",
     "graphql": "^14.3.1",
     "koa": "^2.7.0",
-    "koa-bodyparser": "^4.2.1",
-    "koa-compress": "^3.0.0",
     "koa-logger": "^3.2.0",
-    "koa-mount": "^4.0.0",
     "koa-route": "^3.2.0",
     "koa-serve": "^0.1.7",
     "koa-static": "^5.0.0",
@@ -42,8 +38,7 @@
     "react": "^16.8.6",
     "react-apollo": "^2.5.6",
     "react-dom": "^16.8.6",
-    "react-hot-loader": "^4.8.8",
-    "stripe": "^7.1.0"
+    "react-hot-loader": "^4.8.8"
   },
   "devDependencies": {
     "@babel/core": "7.4.5",

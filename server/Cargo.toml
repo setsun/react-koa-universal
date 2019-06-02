@@ -5,7 +5,6 @@ authors = ["Setsun <setsun@setsun.io>"]
 edition = "2018"
 
 [dependencies]
-actix = "0.8.3"
 actix-web = "0.7.19"
 chrono = "0.4.6"
 juniper = "0.12.0"
