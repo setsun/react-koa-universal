@@ -1,7 +1,0 @@
-[package]
-name = "wasm"
-version = "0.1.0"
-authors = ["Setsun <setsun@setsun.io>"]
-edition = "2018"
-
-[dependencies]
