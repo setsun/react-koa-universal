@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  client:
+    build: ./client
+    ports:
+      - "8800:8800"
+  server:
+    build: ./server
+    ports:
+      - "8801:8801"
+  postgres:
+    image: "postgres:11.3-alpine"
